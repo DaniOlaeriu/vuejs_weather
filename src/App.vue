@@ -1,7 +1,14 @@
 <template>
   <div id="app">
     <div class="container">
-      <div class="weather">
+      <div
+        class="weather"
+        :class="
+          typeof weather.main != 'undefined' && weather.main.temp > 16
+            ? 'warm'
+            : ''
+        "
+      >
         <a href="#" class="weather-logo">weather.me</a>
         <div class="weather-title"></div>
         <div class="search-box">
@@ -97,6 +104,20 @@
   .container {
     background: inherit;
   }
+  .weather.warm {
+    transition: all 400ms;
+    background: #f12711; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to right,
+      #f5af19,
+      #f12711
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to right,
+      #f5af19,
+      #f12711
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
   .weather {
     &-wrap {
       margin-top: 10rem;
@@ -170,7 +191,7 @@
       border-left: none;
       border-right: none;
       border-top: none;
-      border-bottom: 2px solid #fff;
+      border-bottom: 2px solid rgb(158, 151, 151);
       outline: none;
       padding: 0.5rem 0.25rem;
       color: white;
@@ -178,6 +199,7 @@
       font-weight: 700;
       color: white;
       font-size: 0.9rem;
+      transition: all 300ms;
       &::placeholder {
         font-weight: 700;
         color: white;
@@ -185,8 +207,9 @@
         opacity: 0.25;
       }
       &:active,
-      :focus {
+      &:focus {
         outline: none;
+        border-bottom: 2px solid white;
       }
     }
     a {
